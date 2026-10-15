@@ -1,147 +1,73 @@
-# Graph_Algorithms_in_Biological_Pathway_Analysis  
-**Graph Algorithms in Biological Pathway Analysis (Glycolysis) — Micropresentation Project**
+# Graph Algorithms for a Simplified Glycolysis Network
 
-Contributors:
+**UC Berkeley CHEM 274B | Algorithms & Data Structures in Scientific Computing**
 
-David Houshangi
+A collaborative course project applying network-flow concepts to a **simplified, capacity-weighted graph of glycolysis**. The example is intended to illustrate how directed graphs, augmenting paths, and cut sets can be used to reason about network bottlenecks. **It is not a validated biochemical flux model or a substitute for flux balance analysis.**
 
-Kirk Ehmsen
+## Project provenance and my portfolio copy
 
-Christian Fernandez
+The team's original repository was hosted under **Kirk Ehmsen's GitHub account**: [ktehmsen-berkeley/Graph_Algorithms_in_Biological_Pathway_Analysis](https://github.com/ktehmsen-berkeley/Graph_Algorithms_in_Biological_Pathway_Analysis). This repository was created under my account in December 2025 as a **separately maintained copy retaining the collaborative Git commit history**. It is not registered as a GitHub fork; that distinction does not change the attribution of the existing commits.
 
-Yash Maheshwaran
+The original work was completed collaboratively by **David Houshangi, Kirk Ehmsen, Christian Fernandez, and Yash Maheshwaran**. As documented in [team_contributions.md](team_contributions.md), the team reported equal contributions to the project. The original Git commit history has been preserved in this copy; repository ownership and maintenance should not be interpreted as sole authorship of the code.
 
-This project explores how classical network flow algorithms can be applied to metabolic pathways to reveal bottlenecks, pathway capacity, and efficient biochemical routes. We focus on the fundamental graph algorithm:
+This README is a subsequent portfolio-oriented documentation update. The earlier team contributions and their commit history remain intact. This documentation change does not represent a rewrite of the project's analysis code.
 
-- Ford-Fulkerson Algorithm for finding Max-Flow
-    
-    - Finding Augmention Paths via BFS
+## What the project implements
 
-- Analyzing Residual graph to find Min-Cut Edges
+- Represent a simplified glycolysis pathway as a directed graph with reaction capacities stored in a CSV.
+- Find augmenting paths using **breadth-first search (BFS)**.
+- Increase flow along available **forward edges** and calculate an illustrative source-to-sink flow.
+- Identify a corresponding cut from the remaining reachable nodes.
+- Visualize the network, edge capacities, and computed flows.
 
+**Algorithmic limitation:** The current educational implementation checks forward residual capacities but does **not** add or traverse reverse residual edges. Therefore, it does **not** implement the fully general residual-graph version of Ford–Fulkerson/Edmonds–Karp; on some graphs it can miss opportunities to reroute flow and yield a suboptimal result. Reported bottlenecks should be interpreted within the simplified example, not as experimentally demonstrated rate-limiting reactions in living cells.
 
-Using a simplified metabolic network of glycolysis, we demonstrate how computational tools can be adapted to questions in molecular sciences and systems biology.
+## Run the example
 
+Requires Python 3 and the packages listed in [requirements.txt](requirements.txt).
 
-# Project Overview
-
-Metabolic pathways can be viewed as directed graphs where nodes represent metabolites and edges represent biochemical reactions. Each reaction carries a certain “capacity” (e.g., maximum flux).
-
-By applying network flow algorithms to these graphs, we can:
-
-1. Estimate maximum possible flux from substrate to product using max-flow
-
-2. Identify rate-limiting steps using min-cut
-
-3. Interpret biological meaning in terms of bottlenecks, efficiency, and pathway structure
-
-
-This project implements these algorithms on a toy metabolic network and provides visualizations and analysis connecting the results to biological context.
-
-# Repository Structure
-
-
-Graph_Algorithms_in_Biological_Pathway_Analysis/
-
-├── PythonCode/ glycolysis_graph_analysis.py, glycolysis_network.csv
-
-
-├── README.md    
-
-
-├── requirements.txt   
-
-
-├── Makefile
-
-
-├── Presentation.pdf (5-minute slide presentation)
-
-
-├── team_contributions.md               
-
-
-└── Results / glycolysis.png, glycolysis_maxflow.png, glycolysis_noflow.png
-
-## How to use this repository?
-
-> Step 1: clone the repo
 ```bash
-git clone https://github.com/yashm4-4/Graph_Algorithms_in_Biological_Pathway_Analysis.git
+git clone https://github.com/yashm4-4/graph-algorithms-metabolic-networks.git
+cd graph-algorithms-metabolic-networks
+python -m pip install -r requirements.txt
+make run
 ```
 
-> Step 2: Install dependencies
+Alternatively:
+
 ```bash
-pip install -r requirements.txt
-```
-This installs:
-
-- networkx
-
-- matplotlib
-
-- pandas
-
-- numpy
-
-> Step 3: Run
-```bash
+cd PythonCode
 python glycolysis_graph_analysis.py
 ```
-Expected output:
 
-- Maximum Flux value
+The script reads `PythonCode/glycolysis_network.csv`, prints flow and cut information, and writes PNG plots **to its working directory** (normally `PythonCode/` when launched using `make run`).
 
-- Flow on each reaction
+## Files
 
-- Min Cut bottleneck reactions
+| Path | Contents |
+| --- | --- |
+| [PythonCode/glycolysis_graph_analysis.py](PythonCode/glycolysis_graph_analysis.py) | Graph construction, augmenting-path search, flow/cut routines, plotting |
+| [PythonCode/glycolysis_network.csv](PythonCode/glycolysis_network.csv) | Toy biochemical network and assigned capacities |
+| [Results/](Results/) | Illustrative project output figures |
+| [presentation/](presentation/) | Collaborative course presentation and recording |
+| [team_contributions.md](team_contributions.md) | Original statement of equal team contributions |
+| [Makefile](Makefile) | Convenience target for running the analysis |
 
-- Rate-limiting enzymes
+## Example output
 
-The script will also generate three PNG visualizations in the same directory.
+The figures below were produced for the original course project. They illustrate the simplified graph and its computed flow rather than validated biochemical fluxes.
 
-# Results
+![Simplified glycolysis network](Results/glycolysis.png)
 
-> ## Glycolysis Graph
+![Illustrative computed flow](Results/glycolysis_maxflow.png)
 
-<img width="1170" height="3569" alt="glycolysis" src="https://github.com/user-attachments/assets/fddc29bc-368a-44ba-9d79-683347071733" />
+## Scientific scope
 
-  
-<img width="1170" height="3569" alt="glycolysis_noflow" src="https://github.com/user-attachments/assets/e0512066-01c5-4fe1-aca2-66970982beb8" />
+In real metabolic systems, fluxes reflect stoichiometric constraints, reaction reversibility, compartmentation, regulatory effects, and measured or inferred conditions. A generic graph's maximum flow does not by itself establish biological pathway flux or enzymatic rate limitation. This project is primarily an illustration of **graph algorithm concepts in a biological setting**.
 
+## Credits
 
-> ## Max-Flow / Min-Cut
+**Original collaborative project:** David Houshangi, Kirk Ehmsen, Christian Fernandez, and Yash Maheshwaran  
+**Repository maintenance and subsequent documentation updates:** Yash Maheshwaran
 
-- Computes the maximum possible flux from a source metabolite to a product.
-
-- Identifies the minimum set of reactions whose removal blocks the pathway.
-
-- Biological interpretation: bottlenecks and rate-limiting reactions.
-  
-
-<img width="1170" height="3569" alt="glycolysis_maxflow" src="https://github.com/user-attachments/assets/76d9ff5e-8626-45c0-9999-5c4e71c6f660" />
-
-
-
-# Biological Relevance - Applications
-
-Our analysis of network flow algorithms provides insight into:
-
-1. Pathway capacity limits(max metabolic rate).
-
-2. Essential reactions (min-cut).
-
-3. Specific Example in Biology: Glycolysis
-
-# Conclusion
-
-Applied to metabolic networks, classical graph algorithms provide insight into biological processes. Through directed, capacity-weighted graph modeling of glycolysis, we identified maximum flux of metabolites, the bottleneck reaction (f6p --> f16bp), and the primary rate-limiting enzyme (PFK). Although it is a simplification of complete Flux Balance Analysis, this technique provides a clear and visual way to observe pathway structure and bottlenecks. The results obtained correlate well with current biochemistry knowledge. They demonstrate the usefulness of theoretical computer science-derived computational tools when evaluating real-world biological systems. This experiment reiterated the power of algorithmic thought to clarify intricate molecular mechanisms and introduced the potential for higher-level modeling of more extensive metabolic networks.
-
-
-# Acknowledgments
-
-- This project was developed as part of the Chem 274B – Algorithms & Data Structures in Scientific Computing course at UC Berkeley.
-
-- All algorithms were implemented in Python using open-source libraries.
-
-
+The retained commit history records the original collaborators and their work.

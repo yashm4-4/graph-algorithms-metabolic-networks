@@ -2,15 +2,9 @@
 
 **UC Berkeley CHEM 274B | Algorithms & Data Structures in Scientific Computing**
 
+**Team:** David Houshangi, Kirk Ehmsen, Christian Fernandez, and Yash Maheshwaran ([original repository](https://github.com/ktehmsen-berkeley/Graph_Algorithms_in_Biological_Pathway_Analysis) · [contributions](team_contributions.md)).
+
 A collaborative course project applying network-flow concepts to a **simplified, capacity-weighted graph of glycolysis**. The example is intended to illustrate how directed graphs, augmenting paths, and cut sets can be used to reason about network bottlenecks. **It is not a validated biochemical flux model or a substitute for flux balance analysis.**
-
-## Project provenance and my portfolio copy
-
-The team's original repository was hosted under **Kirk Ehmsen's GitHub account**: [ktehmsen-berkeley/Graph_Algorithms_in_Biological_Pathway_Analysis](https://github.com/ktehmsen-berkeley/Graph_Algorithms_in_Biological_Pathway_Analysis). This repository was created under my account in December 2025 as a **separately maintained copy retaining the collaborative Git commit history**. It is not registered as a GitHub fork; that distinction does not change the attribution of the existing commits.
-
-The original work was completed collaboratively by **David Houshangi, Kirk Ehmsen, Christian Fernandez, and Yash Maheshwaran**. As documented in [team_contributions.md](team_contributions.md), the team reported equal contributions to the project. The original Git commit history has been preserved in this copy; repository ownership and maintenance should not be interpreted as sole authorship of the code.
-
-This README is a subsequent portfolio-oriented documentation update. The earlier team contributions and their commit history remain intact. This documentation change does not represent a rewrite of the project's analysis code.
 
 ## What the project implements
 
@@ -64,10 +58,3 @@ The figures below were produced for the original course project. They illustrate
 ## Scientific scope
 
 In real metabolic systems, fluxes reflect stoichiometric constraints, reaction reversibility, compartmentation, regulatory effects, and measured or inferred conditions. A generic graph's maximum flow does not by itself establish biological pathway flux or enzymatic rate limitation. This project is primarily an illustration of **graph algorithm concepts in a biological setting**.
-
-## Credits
-
-**Original collaborative project:** David Houshangi, Kirk Ehmsen, Christian Fernandez, and Yash Maheshwaran  
-**Repository maintenance and subsequent documentation updates:** Yash Maheshwaran
-
-The retained commit history records the original collaborators and their work.
